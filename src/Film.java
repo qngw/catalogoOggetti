@@ -1,9 +1,9 @@
 public class Film extends ElementoCatalogo{
     private String regista;
 
-    public Film(String titolo, int annoPublicazione, int id, String piattaforma) {
+    public Film(String titolo, int annoPublicazione, int id, String regista) {
         super(titolo, annoPublicazione, id);
-        this.regista = piattaforma;
+        this.regista = regista;
     }
     public Film(){super();}
 
@@ -12,6 +12,6 @@ public class Film extends ElementoCatalogo{
 
     @Override
     public String toString() {
-        return super.toString()+", piattaforma: "+ regista;
+        return super.toString()+", regista: "+ regista;
     }
 }
