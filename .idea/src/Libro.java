@@ -1,4 +1,4 @@
-public class Libro extends ElementoCatalogo {
+public class Libro extends ElementoCatalogo{
     private String autore;
 
     public Libro(String titolo, int annoPublicazione, int id, String autore) {
@@ -12,4 +12,10 @@ public class Libro extends ElementoCatalogo {
 
     public String getAutore() { return autore; }
     public void setAutore(String autore) { this.autore = autore; }
+
+    @Override
+    public String toString() {
+        return super()+", autore: "+autore;
+    }
 }
+
