@@ -1,11 +1,11 @@
 public class ElementoCatalogo implements Comparable<ElementoCatalogo>{
-    String titolo;
-    int annoPublicazione;
-    int id; //codice identificativo
+    private String titolo;
+    private int annoPubblicazione;
+    private int id; //codice identificativo
 
-    public ElementoCatalogo(String titolo, int annoPublicazione, int id) {
+    public ElementoCatalogo(String titolo, int annoPubblicazione, int id) {
         this.titolo = titolo;
-        this.annoPublicazione = annoPublicazione;
+        this.annoPubblicazione = annoPubblicazione;
         this.id = id;
     }
 
@@ -13,10 +13,10 @@ public class ElementoCatalogo implements Comparable<ElementoCatalogo>{
     }
 
     public String getTitolo() {return titolo;}
-    public int getAnnoPublicazione() {return annoPublicazione;}
+    public int getAnnoPubblicazione() {return annoPubblicazione;}
     public int getId() {return id;}
     public void setTitolo(String titolo) {this.titolo = titolo;}
-    public void setAnnoPublicazione(int annoPublicazione) {this.annoPublicazione = annoPublicazione;}
+    public void setAnnoPubblicazione(int annoPubblicazione) {this.annoPubblicazione = annoPubblicazione;}
     public void setId(int id) {this.id = id;}
 
     @Override
@@ -31,7 +31,7 @@ public class ElementoCatalogo implements Comparable<ElementoCatalogo>{
 
     @Override
     public String toString() {
-        return "titolo: "+titolo+", annoPublicazione: "+annoPublicazione+", id: "+id;
+        return "titolo: "+titolo+", annoPublicazione: "+annoPubblicazione+", id: "+id;
     }
 
 }
