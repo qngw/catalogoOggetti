@@ -5,17 +5,15 @@ public class Libro extends ElementoCatalogo{
         super(titolo, annoPublicazione, id);
         this.autore = autore;
     }
-
-    public Libro() {
-        super();
-    }
+    public Libro(){super();}
 
     public String getAutore() { return autore; }
     public void setAutore(String autore) { this.autore = autore; }
 
     @Override
     public String toString() {
-        return super()+", autore: "+autore;
+        return super.toString()+", autore: "+autore;
     }
+
 }
 
