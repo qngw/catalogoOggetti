@@ -43,7 +43,7 @@ public class BST <T extends Comparable<T>>{
         }
 
         // Ritorna il nodo corrente (non modificato)
-        return corrente;
+	return corrente;
     }
 
     //metodo per inserire nodi con overwriting (usato per eliminare nodi)
@@ -145,7 +145,7 @@ public class BST <T extends Comparable<T>>{
 	
 	    //elimina il successore
 	    corrente.destro=eliminaRicorsivo(corrente.destro,corrente.valore);
-	    System.out.println("eliminazione avvenuta con success");
+	    System.out.println("eliminazione avvenuta con successo");
     	}
 	return corrente;
     }

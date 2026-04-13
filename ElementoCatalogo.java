@@ -33,5 +33,11 @@ public class ElementoCatalogo implements Comparable<ElementoCatalogo>{
     public String toString() {
         return "id: "+id+", titolo: "+titolo+", annoPublicazione: "+annoPubblicazione;
     }
-
+    
+    public boolean equals(ElementoCatalogo o){
+	if(this.id==o.id){
+	    return true;
+	}
+	return false;
+    }
 }

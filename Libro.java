@@ -14,6 +14,6 @@ public class Libro extends ElementoCatalogo{
     public String toString() {
         return super.toString()+", autore: "+autore;
     }
-
+    
 }
 

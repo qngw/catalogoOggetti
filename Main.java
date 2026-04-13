@@ -47,7 +47,9 @@ public class Main {
 			System.out.println(catalogo.getLast());
 			break;
 		    case 8:
+			catalogo.stampaGrafica();
 			eliminazioneElemento();//crea un elemento che poi verrà eliminato dal BST
+			catalogo.stampaGrafica();
 			break;
 		    default:				
                         break;
