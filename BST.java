@@ -1,3 +1,4 @@
+
 public class BST <T extends Comparable<T>>{
     private Nodo<T> radice;
 
@@ -14,6 +15,10 @@ public class BST <T extends Comparable<T>>{
     public void inserisci(T valore){
         //fa partire la ricorsività aggiornando radice cosi da scendere a ogni passo
         radice=inserisciRicorsivo(radice,valore);
+    }
+
+    public void inserisci(Nodo<T> nodo){
+	radice=inserisciRicorsivo(radice,nodo);
     }
 
     //metodo privato che puo essere richiamato solo dal metodo pubblico
@@ -41,6 +46,20 @@ public class BST <T extends Comparable<T>>{
         return corrente;
     }
 
+    //metodo per inserire nodi con overwriting (usato per eliminare nodi)
+    private Nodo<T> inserisciRicorsivo(Nodo<T> corrente, Nodo<T> nodo){
+	if(corrente==null){
+	    return nodo;
+	}
+	
+	int cmp=nodo.valore.compareTo(corrente.valore);
+
+	if(cmp<0){corrente.sinistro=inserisciRicorsivo(corrente.sinistro,nodo);}
+	else if(cmp>0){corrente.destro=inserisciRicorsivo(corrente.destro,nodo);}
+
+	return corrente;	
+    }
+
     //metodo publico per cercare un valore
     public Nodo<T> cerca(T valore) {
         System.out.println("ricerca in corso...");
@@ -59,7 +78,7 @@ public class BST <T extends Comparable<T>>{
         int cmp=valore.compareTo(corrente.valore);
 
         //se il compare da zero significa che abbiamo trovato l'elemento
-        if(cmp==0){
+        if(cmp==0||corrente.valore.equals(valore)){
             System.out.println("elemento trovato");
             System.out.println(corrente.valore);
             return corrente;
@@ -89,6 +108,66 @@ public class BST <T extends Comparable<T>>{
         //3. visita ricorsivamente tutta la parte a destra
         stampaInOrdineRicorsiva(corrente.destro);
 
+    }
+
+    //restituisce primo elemento
+    public T getFirst(){
+    	return getFirstRicorsivo(radice.sinistro,radice);
+    } 
+    private T getFirstRicorsivo(Nodo<T> corrente,Nodo <T> precedente){
+	if(corrente!=null){
+	    return getFirstRicorsivo(corrente.sinistro,corrente);
+        }//se (andando solo a sinistra) un nodo non ha nessun nodo sinistro è il più piccolo
+   	
+	return precedente.valore;
+	
+   }
+    public void elimina(T valore){
+	radice=eliminaRicorsivo(radice,valore);
+    }
+
+    //elimina l'emento cercandolo sia tramite id che tramite oggetto
+    private Nodo<T> eliminaRicorsivo(Nodo<T> corrente,T valore){
+
+	if(corrente==null) return null;
+	
+	int cmp=valore.compareTo(corrente.valore);
+
+	if(cmp<0){corrente.sinistro=eliminaRicorsivo(corrente.sinistro,valore);}
+	else if(cmp>0){corrente.destro=eliminaRicorsivo(corrente.destro,valore);}
+	else{
+	    //caso con un figlio: viene sostituito dal suo figlio
+	    if(corrente.sinistro==null) return corrente.destro;
+	    if(corrente.destro==null) return corrente.sinistro;
+	
+	    //caso con due figli: prendi il piu piccolo di destra
+	    corrente.valore=valoreMinimo(corrente.destro);
+	
+	    //elimina il successore
+	    corrente.destro=eliminaRicorsivo(corrente.destro,corrente.valore);
+	    System.out.println("eliminazione avvenuta con success");
+    	}
+	return corrente;
+    }
+    private T valoreMinimo(Nodo<T> nodo){
+	T min=nodo.valore;
+	while(nodo.sinistro!=null){
+	    min=nodo.sinistro.valore;
+	    nodo=nodo.sinistro;
+	}
+	return min;
+    }
+
+    //restituise l'ultimo elemento
+    public T getLast(){
+   	return getLastRicorsivo(radice.destro,radice);
+    }
+    private T getLastRicorsivo(Nodo<T> corrente,Nodo<T> precedente){
+	if(corrente!=null){
+	    return getLastRicorsivo(corrente.destro,corrente);
+	}//se (andando solo a destra) un nodo non ha nessun nodo destro è il più grande
+
+	return precedente.valore;
     }
 
     public void stampaGrafica() {

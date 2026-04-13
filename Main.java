@@ -20,7 +20,7 @@ public class Main {
         while (scelta != 0) {
             do {
                 System.out.println("--- Menu ---\n");
-                System.out.println("0. exit\n1. diagnostica\n2. aggiungi un elemento\n3. ricerca di un elemento\n4. stampa catalogo\n5. stampa grafica");
+                System.out.println("0. exit\n1. diagnostica\n2. aggiungi un elemento\n3. ricerca di un elemento\n4. stampa catalogo\n5. stampa grafica\n6. stampa il primo elemento\n7. stampa l'ultimo elemento\n8. elimina elemento");
 
                 scelta = sc.nextInt();
                 pulisciTerminale(); // funziona solo su terminale
@@ -39,12 +39,29 @@ public class Main {
                         break;
 		    case 5:
 			catalogo.stampaGrafica();
-                    default:
+			break;
+                    case 6:
+			System.out.println(catalogo.getFirst());
+			break;
+		    case 7:
+			System.out.println(catalogo.getLast());
+			break;
+		    case 8:
+			eliminazioneElemento();//crea un elemento che poi verrà eliminato dal BST
+			break;
+		    default:				
                         break;
                 }
-            } while (scelta < 0 || scelta > 5);
+            } while (scelta < 0 || scelta > 8);
 
         }
+    }
+	
+    public static void eliminazioneElemento(){
+	Scanner sc=new Scanner(System.in);
+	System.out.print("id da eliminare: ");
+	int id=sc.nextInt();
+	catalogo.elimina(new ElementoCatalogo("",0,id));
     }
 
     //Chiede all'utente l'ID da cercare e richiama il metodo di ricerca
