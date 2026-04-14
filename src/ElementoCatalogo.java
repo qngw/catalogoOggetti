@@ -1,4 +1,4 @@
-public class ElementoCatalogo implements Comparable<ElementoCatalogo>{
+public class ElementoCatalogo implements Comparable<ElementoCatalogo>, Catalogabile {
     private String titolo;
     private int annoPubblicazione;
     private int id; //codice identificativo
@@ -33,6 +33,10 @@ public class ElementoCatalogo implements Comparable<ElementoCatalogo>{
     public String toString() {
         return "id: " + id+" | titolo: "+titolo+" | anno: "+annoPubblicazione;
     }
+    public String descrivi() {
+        return  "titolo: "+titolo+" | anno: "+annoPubblicazione;
+    }
+
     
     public boolean equals(ElementoCatalogo o){
 	if(this.id==o.id){
