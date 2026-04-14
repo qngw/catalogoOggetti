@@ -10,9 +10,6 @@ public class Main {
         // Popola l'albero con dati predefiniti
         inserimentoElementiBase();
 
-        System.out.print("premere ENTER per passare al menu");
-        sc.nextLine();
-
         menu();
     }
 
@@ -23,7 +20,7 @@ public class Main {
         while (scelta != 0) {
             do {
                 System.out.println("--- Menu ---\n");
-                System.out.println("0. exit\n1. diagnostica\n2. aggiungi un elemento\n3. ricerca di un elemento\n4. stampa catalogo");
+                System.out.println("0. exit\n1. diagnostica\n2. aggiungi un elemento\n3. ricerca di un elemento\n4. stampa catalogo\n5. stampa grafica\n6. stampa il primo elemento\n7. stampa l'ultimo elemento\n8. elimina elemento");
 
                 scelta = sc.nextInt();
                 pulisciTerminale(); // funziona solo su terminale
@@ -40,12 +37,33 @@ public class Main {
                     case 4:
                         catalogo.stampaInOrdine();
                         break;
-                    default:
+		    case 5:
+			catalogo.stampaGrafica();
+			break;
+                    case 6:
+			System.out.println(catalogo.getFirst());
+			break;
+		    case 7:
+			System.out.println(catalogo.getLast());
+			break;
+		    case 8:
+			catalogo.stampaGrafica();
+			eliminazioneElemento();//crea un elemento che poi verrà eliminato dal BST
+			catalogo.stampaGrafica();
+			break;
+		    default:				
                         break;
                 }
-            } while (scelta < 0 || scelta > 4);
+            } while (scelta < 0 || scelta > 8);
 
         }
+    }
+	
+    public static void eliminazioneElemento(){
+	Scanner sc=new Scanner(System.in);
+	System.out.print("id da eliminare: ");
+	int id=sc.nextInt();
+	catalogo.elimina(new ElementoCatalogo("",0,id));
     }
 
     //Chiede all'utente l'ID da cercare e richiama il metodo di ricerca
@@ -94,6 +112,7 @@ public class Main {
             parametro = sc.nextLine();
             catalogo.inserisci(new Videogioco(titolo, annoPubblicazione, id, parametro));
         }
+        System.out.println("elemento inserito con successo");2
     }
 
     //Overloading del metodo ricerca: permette di cercare passando solo l'ID o un elemento
@@ -111,16 +130,16 @@ public class Main {
 
         // Array polimorfico contenente diversi tipi di media
         ElementoCatalogo[] nuoviElementi = {
-                new Libro("Il Nome della Rosa", 1980, 600, "Umberto Eco"),
-                new Film("Interstellar", 2014, 250, "Christopher Nolan"),
-                new Videogioco("Elden Ring", 2022, 800, "FromSoftware"),
-                new Libro("Cronache del Ghiaccio e del Fuoco", 1996, 100, "G.R.R. Martin"),
-                new Film("The Matrix", 1999, 350, "Lana e Lilly Wachowski"),
-                new Videogioco("Super Mario Bros", 1985, 650, "Nintendo"),
-                new Libro("Il Vecchio e il Mare", 1952, 900, "Ernest Hemingway"),
-                new Film("Parasite", 2019, 450, "Bong Joon-ho"),
-                new Videogioco("Cyberpunk 2077", 2020, 150, "CD Projekt Red"),
-                new Libro("Dune", 1965, 750, "Frank Herbert")
+                new Libro("Il Nome della Rosa",1980, 600, "Umberto Eco"),
+                new Film("Interstellar",2014, 250, "Christopher Nolan"),
+                new Videogioco("Elden Ring",2022, 800, "FromSoftware"),
+                new Libro("Cronache del Ghiaccio e del Fuoco",1996, 100, "G.R.R. Martin"),
+                new Film("The Matrix", 1999,350, "Lana e Lilly Wachowski"),
+                new Videogioco("Super Mario Bros",1985, 650, "Nintendo"),
+                new Libro("Il Vecchio e il Mare",1952, 900, "Ernest Hemingway"),
+                new Film("Parasite",2019, 450, "Bong Joon-ho"),
+                new Videogioco("Cyberpunk 2077",2020 , 150 ,"CD Projekt Red"),
+                new Libro("Dune", 1965 ,750 ,"Frank Herbert")
         };
 
         // Ciclo per inserire ogni elemento dell'array nell'albero binario
@@ -161,9 +180,8 @@ public class Main {
                 // Comando specifico per il prompt di MS-DOS/Windows
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                // Sequenza escape ANSI per sistemi basati su Unix (Linux, macOS)
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
+                // Comando specifico per il prompt linu-macOs
+		new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
         } catch (Exception e) {
             System.err.println("errore durante la pulizia del terminale");

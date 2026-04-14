@@ -31,7 +31,13 @@ public class ElementoCatalogo implements Comparable<ElementoCatalogo>{
 
     @Override
     public String toString() {
-        return "id: "+id+", titolo: "+titolo+", annoPublicazione: "+annoPubblicazione;
+        return "id: " + id+" | titolo: "+titolo+" | anno: "+annoPubblicazione;
     }
-
+    
+    public boolean equals(ElementoCatalogo o){
+	if(this.id==o.id){
+	    return true;
+	}
+	return false;
+    }
 }

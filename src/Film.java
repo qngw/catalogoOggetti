@@ -12,6 +12,6 @@ public class Film extends ElementoCatalogo{
 
     @Override
     public String toString() {
-        return super.toString()+", regista: "+ regista;
+        return super.toString()+" | regista: "+ regista;
     }
 }

@@ -12,7 +12,7 @@ public class Videogioco extends ElementoCatalogo{
 
     @Override
     public String toString() {
-        return super.toString()+", piattaforma: "+piattaforma;
+        return super.toString()+" | piattaforma: "+piattaforma;
     }
 
 }
