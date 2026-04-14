@@ -112,7 +112,7 @@ public class Main {
             parametro = sc.nextLine();
             catalogo.inserisci(new Videogioco(titolo, annoPubblicazione, id, parametro));
         }
-        System.out.println("elemento inserito con successo");2
+        System.out.println("elemento inserito con successo");
     }
 
     //Overloading del metodo ricerca: permette di cercare passando solo l'ID o un elemento
