@@ -37,26 +37,30 @@ public class Main {
                     case 4:
                         catalogo.stampaInOrdine();
                         break;
-		    case 5:
-			catalogo.stampaGrafica();
-			break;
+                    case 5:
+			            catalogo.stampaGrafica();
+			            break;
                     case 6:
-			System.out.println(catalogo.getFirst());
-			break;
-		    case 7:
-			System.out.println(catalogo.getLast());
-			break;
-		    case 8:
-			catalogo.stampaGrafica();
-			eliminazioneElemento();//crea un elemento che poi verrà eliminato dal BST
-			catalogo.stampaGrafica();
-			break;
-		    default:				
+			            System.out.println(catalogo.getFirst());
+			            break;
+		            case 7:
+			            System.out.println(catalogo.getLast());
+			            break;
+		            case 8:
+			            catalogo.stampaGrafica();
+			            eliminazioneElemento();//crea un elemento che poi verrà eliminato dal BST
+                        catalogo.stampaGrafica();
+                        break;
+                   default:
                         break;
                 }
             } while (scelta < 0 || scelta > 8);
-
         }
+        salvaCatalogo();
+    }
+
+    public static void salvaCatalogo(){
+        catalogo.salvaCsv();
     }
 	
     public static void eliminazioneElemento(){
@@ -98,16 +102,12 @@ public class Main {
         sc.nextLine(); // Svuota di nuovo il buffer
         String parametro;
 
-        // In base alla scelta, istanzia la sottoclasse specifica e la aggiunge al BST, salva anche in un bool se l'aggiunta è andata a buon fine
-        boolean successo=false;
-	if (scelta == 1) {
+        // In base alla scelta, istanzia la sottoclasse specifica e la aggiunge al BST
+        if (scelta == 1) {
             System.out.print("autore: ");
             parametro = sc.nextLine();
-            successo=catalogo.inserisci(new Libro(titolo, annoPubblicazione, id, parametro));
-	/*la funzione inserisci restituisce un boolean, true se è stato inserito con successo, false se c'è stato un problema
-        *questo risultato viene salvato in "successo"
-	*/
-	} else if (scelta == 2) {
+            catalogo.inserisci(new Libro(titolo, annoPubblicazione, id, parametro));
+        } else if (scelta == 2) {
             System.out.print("regista: ");
             parametro = sc.nextLine();
             catalogo.inserisci(new Film(titolo, annoPubblicazione, id, parametro));
@@ -116,11 +116,8 @@ public class Main {
             parametro = sc.nextLine();
             catalogo.inserisci(new Videogioco(titolo, annoPubblicazione, id, parametro));
         }
-	//qui in base a "successo" stampa l'esito dell'operazione
-	if(successo){
-	    System.out.println("elemento inserito con successo");
-	}else{System.out.println("impossibile inserire un elemento con questo id");}
-    }	
+        System.out.println("elemento inserito con successo");
+    }
 
     //Overloading del metodo ricerca: permette di cercare passando solo l'ID o un elemento
     public static void ricerca(int id) {

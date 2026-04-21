@@ -14,5 +14,6 @@ public class Videogioco extends ElementoCatalogo{
     public String toString() {
         return super.toString()+" | piattaforma: "+piattaforma;
     }
+    public String formatoCsv(){return super.formatoCsv()+", \""+piattaforma+"\"";}
 
 }

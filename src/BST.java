@@ -1,5 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.*;
 
-public class BST <T extends Comparable<T>>{
+public class BST <T extends Comparable<T> & Catalogabile>{
     private Nodo<T> radice;
 
     public BST(){
@@ -12,19 +17,13 @@ public class BST <T extends Comparable<T>>{
     }
 
     //metodo pubblico per inserire
-    public boolean inserisci(T valore){
-	if(cercaRicorsivo(radice,valore) == null){  // nodo non presente quindi viene inserito
-            radice = inserisciRicorsivo(radice, valore);
-            return true;
-	}
-	return false; //id gia usato restituisce false
+    public void inserisci(T valore){
+        //fa partire la ricorsività aggiornando radice cosi da scendere a ogni passo
+        radice=inserisciRicorsivo(radice,valore);
     }
-    public boolean inserisci(Nodo<T> nodo){
-	if(cercaRicorsivo(radice,nodo.valore)==null){
-	    radice=inserisciRicorsivo(radice,nodo);
-	}
-	return false;
 
+    public void inserisci(Nodo<T> nodo){
+	radice=inserisciRicorsivo(radice,nodo);
     }
 
     //metodo privato che puo essere richiamato solo dal metodo pubblico
@@ -32,6 +31,7 @@ public class BST <T extends Comparable<T>>{
 
         //se arriviamo a una foglia creiamo il nuovo nodo
         if(corrente==null){
+            //System.out.println("elemento inserito con successo");
             return new Nodo<>(valore);
         }
 
@@ -75,7 +75,7 @@ public class BST <T extends Comparable<T>>{
     private Nodo<T> cercaRicorsivo(Nodo<T> corrente, T valore) {
         //se arriviamo a null il valore non è presente nell'albero
         if(corrente==null){
-            // System.out.println("elemento non presente nell'albero");
+            System.out.println("elemento non presente nell'albero");
             return null;
         }
 
@@ -84,6 +84,8 @@ public class BST <T extends Comparable<T>>{
 
         //se il compare da zero significa che abbiamo trovato l'elemento
         if(cmp==0||corrente.valore.equals(valore)){
+            System.out.println("elemento trovato");
+            System.out.println(corrente.valore);
             return corrente;
         }
 
@@ -110,6 +112,41 @@ public class BST <T extends Comparable<T>>{
 
         //3. visita ricorsivamente tutta la parte a destra
         stampaInOrdineRicorsiva(corrente.destro);
+
+    }
+
+    //aggiunge i dati in file csv
+    public void salvaCsv() {
+        FileOutputStream f=null;
+        try {
+            f = new FileOutputStream("catalogo.CSV");
+            OutputStreamWriter fOUT = new OutputStreamWriter(f);
+            fOUT.write("\"tipo\", \"titolo\", \"anno di pubblicazione\", \"id\", \"autore/produttore/regista\"");
+            salvaCsvRicorsiva(radice, fOUT);
+            fOUT.flush();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try{f.close();}catch (IOException e){System.out.println(e);}
+        }
+    }
+
+    private void salvaCsvRicorsiva(Nodo<T> corrente, OutputStreamWriter fOUT){
+        if(corrente==null){return;} //se corrente è null siamo arrivati a una foglia
+
+        //Questa funzione partendo dalla root fa 3 cose:
+        //1. visita ricorsivamente tutta la parte sinistra
+        salvaCsvRicorsiva(corrente.sinistro,fOUT);
+
+        //2. salva il nodo corrente
+        try {
+            fOUT.write("\n"+corrente.valore.formatoCsv());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //3. visita ricorsivamente tutta la parte a destra
+        salvaCsvRicorsiva(corrente.destro,fOUT);
 
     }
 

@@ -3,4 +3,5 @@ public interface Catalogabile {
     int getAnnoPubblicazione();
     int getId();
     String descrivi();
+    String formatoCsv();
 }

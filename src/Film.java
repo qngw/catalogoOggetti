@@ -14,4 +14,5 @@ public class Film extends ElementoCatalogo{
     public String toString() {
         return super.toString()+" | regista: "+ regista;
     }
+    public String formatoCsv(){return super.formatoCsv()+", \""+regista+"\"";}
 }
