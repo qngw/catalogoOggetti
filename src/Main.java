@@ -38,17 +38,17 @@ public class Main {
                         catalogo.stampaInOrdine();
                         break;
                     case 5:
-			            catalogo.stampaGrafica();
-			            break;
+	        	catalogo.stampaGrafica();
+	                break;
                     case 6:
-			            System.out.println(catalogo.getFirst());
-			            break;
-		            case 7:
-			            System.out.println(catalogo.getLast());
-			            break;
-		            case 8:
-			            catalogo.stampaGrafica();
-			            eliminazioneElemento();//crea un elemento che poi verrà eliminato dal BST
+	                System.out.println(catalogo.getFirst());
+	                break;
+	            case 7:
+			System.out.println(catalogo.getLast());
+			break;
+		    case 8:
+			catalogo.stampaGrafica();
+			eliminazioneElemento();//crea un elemento che poi verrà eliminato dal BST
                         catalogo.stampaGrafica();
                         break;
                    default:
@@ -99,6 +99,11 @@ public class Main {
         System.out.print("id: ");
         int id = sc.nextInt();
 
+	if(ricerca(id)){
+	    System.out.println("un elemento con questo indice è già presente, impossibile aggiungerne un secondo");
+	    return;
+	}
+
         sc.nextLine(); // Svuota di nuovo il buffer
         String parametro;
 
@@ -116,16 +121,17 @@ public class Main {
             parametro = sc.nextLine();
             catalogo.inserisci(new Videogioco(titolo, annoPubblicazione, id, parametro));
         }
-        System.out.println("elemento inserito con successo");
     }
 
     //Overloading del metodo ricerca: permette di cercare passando solo l'ID o un elemento
-    public static void ricerca(int id) {
-        // Viene creato un oggetto "dummy" perché il BST confronta oggetti tramite compareTo
-        catalogo.cerca(new ElementoCatalogo("", 0, id));
+    public static boolean ricerca(int id) {
+	// Viene creato un oggetto "dummy" perché il BST confronta oggetti tramite compareTo
+        if(catalogo.cerca(new ElementoCatalogo("",0,id))==null){return false;}
+	return true;
     }
-    public static void ricerca(ElementoCatalogo elemento) {
-        catalogo.cerca(elemento);
+    public static boolean ricerca(ElementoCatalogo elemento) {
+        if(catalogo.cerca(elemento)==null){return false;}
+	return true;
     }
 
     //Popola il catalogo con 10 elementi
@@ -148,7 +154,7 @@ public class Main {
 
         // Ciclo per inserire ogni elemento dell'array nell'albero binario
         for (ElementoCatalogo e : nuoviElementi) {
-            System.out.println(e.toString());
+            System.out.print(e.toString());
             catalogo.inserisci(e);
         }
 

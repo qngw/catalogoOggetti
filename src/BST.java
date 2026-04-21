@@ -31,7 +31,7 @@ public class BST <T extends Comparable<T> & Catalogabile>{
 
         //se arriviamo a una foglia creiamo il nuovo nodo
         if(corrente==null){
-            //System.out.println("elemento inserito con successo");
+            System.out.println(" elemento inserito con successo");
             return new Nodo<>(valore);
         }
 
@@ -75,7 +75,7 @@ public class BST <T extends Comparable<T> & Catalogabile>{
     private Nodo<T> cercaRicorsivo(Nodo<T> corrente, T valore) {
         //se arriviamo a null il valore non è presente nell'albero
         if(corrente==null){
-            System.out.println("elemento non presente nell'albero");
+            //System.out.println("elemento non presente nell'albero");
             return null;
         }
 
