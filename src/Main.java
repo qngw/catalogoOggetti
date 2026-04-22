@@ -6,7 +6,6 @@ public class Main {
     static BST<ElementoCatalogo> catalogo = new BST<>();
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         // Popola l'albero con dati predefiniti
         //inserimentoElementiBase();
         catalogo.caricaCSV();
@@ -127,39 +126,10 @@ public class Main {
     //Overloading del metodo ricerca: permette di cercare passando solo l'ID o un elemento
     public static boolean ricerca(int id) {
 	// Viene creato un oggetto "dummy" perché il BST confronta oggetti tramite compareTo
-        if(catalogo.cerca(new ElementoCatalogo("",0,id))==null){return false;}
-	return true;
+        return catalogo.cerca(new ElementoCatalogo("", 0, id)) != null;
     }
     public static boolean ricerca(ElementoCatalogo elemento) {
-        if(catalogo.cerca(elemento)==null){return false;}
-	return true;
-    }
-
-    //Popola il catalogo con 10 elementi
-    public static void inserimentoElementiBase() {
-        System.out.println("--- Inserimento elementi base nel BST ---");
-
-        // Array polimorfico contenente diversi tipi di media
-        ElementoCatalogo[] nuoviElementi = {
-                new Libro("Il Nome della Rosa",1980, 600, "Umberto Eco"),
-                new Film("Interstellar",2014, 250, "Christopher Nolan"),
-                new Videogioco("Elden Ring",2022, 800, "FromSoftware"),
-                new Libro("Cronache del Ghiaccio e del Fuoco",1996, 100, "G.R.R. Martin"),
-                new Film("The Matrix", 1999,350, "Lana e Lilly Wachowski"),
-                new Videogioco("Super Mario Bros",1985, 650, "Nintendo"),
-                new Libro("Il Vecchio e il Mare",1952, 900, "Ernest Hemingway"),
-                new Film("Parasite",2019, 450, "Bong Joon-ho"),
-                new Videogioco("Cyberpunk 2077",2020 , 150 ,"CD Projekt Red"),
-                new Libro("Dune", 1965 ,750 ,"Frank Herbert")
-        };
-
-        // Ciclo per inserire ogni elemento dell'array nell'albero binario
-        for (ElementoCatalogo e : nuoviElementi) {
-            System.out.print(e.toString());
-            catalogo.inserisci(e);
-        }
-
-        System.out.println("\nsono stati inseriti con successo: " + nuoviElementi.length + " elementi");
+        return catalogo.cerca(elemento) != null;
     }
 
     //Esegue qualche test
