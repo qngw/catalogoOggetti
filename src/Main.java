@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // Popola l'albero con dati predefiniti
-        inserimentoElementiBase();
+        //inserimentoElementiBase();
+        catalogo.caricaCSV();
 
         menu();
     }
@@ -19,7 +20,7 @@ public class Main {
 
         while (scelta != 0) {
             do {
-                System.out.println("--- Menu ---\n");
+                System.out.println("--- Menu ---");
                 System.out.println("0. exit\n1. diagnostica\n2. aggiungi un elemento\n3. ricerca di un elemento\n4. stampa catalogo\n5. stampa grafica\n6. stampa il primo elemento\n7. stampa l'ultimo elemento\n8. elimina elemento");
 
                 scelta = sc.nextInt();

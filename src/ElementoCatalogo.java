@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class ElementoCatalogo implements Comparable<ElementoCatalogo>, Catalogabile, Serializable {
+public class ElementoCatalogo implements Comparable<ElementoCatalogo>,ToCSV, Catalogabile, Serializable {
     private String titolo;
     private int annoPubblicazione;
     private int id; //codice identificativo
@@ -38,7 +38,7 @@ public class ElementoCatalogo implements Comparable<ElementoCatalogo>, Catalogab
     public String descrivi() {
         return  "titolo: "+titolo+" | anno: "+annoPubblicazione;
     }
-    public String formatoCsv(){return "\""+this.getClass().getSimpleName()+"\","+"\""  +titolo+"\", "+annoPubblicazione+", "+id;}
+    public String printCSV(){return "\""+this.getClass().getSimpleName()+"\","+"\""  +titolo+"\", "+annoPubblicazione+", "+id;}
 
     
     public boolean equals(ElementoCatalogo o){

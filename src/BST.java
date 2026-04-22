@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.*;
 
-public class BST <T extends Comparable<T> & Catalogabile>{
+public class BST <T extends Comparable<T> & ToCSV>{
     private Nodo<T> radice;
 
     public BST(){
@@ -46,23 +46,62 @@ public class BST <T extends Comparable<T> & Catalogabile>{
             //se il nuovo valore è maggiore scendi a destra
             corrente.destro=inserisciRicorsivo(corrente.destro,valore);
         }
-
         // Ritorna il nodo corrente (non modificato)
-	return corrente;
+	    return corrente;
+    }
+
+    public void caricaCSV(){
+        try {
+            FileReader f= new FileReader("catalogo.CSV");
+            BufferedReader fIN=new BufferedReader(f);
+
+            String s;
+            s=fIN.readLine();
+            int i = 0;
+            while(s!=null){
+                String[] splitArray =s.split(",");
+                for(String string:splitArray){
+                    splitArray[i++]=string.replace("\"","").trim();
+                }
+                String tipo = splitArray[0];
+                switch (tipo){
+                    case "Libro":
+                        Libro libro= new Libro(splitArray[1],Integer.parseInt(splitArray[2]),Integer.parseInt(splitArray[3]),splitArray[4]);
+                        inserisci((T) libro);
+                        break;
+                    case "Film":
+                        Film film= new Film(splitArray[1],Integer.parseInt(splitArray[2]),Integer.parseInt(splitArray[3]),splitArray[4]);
+                        inserisci((T) film);
+                        break;
+                    case "Videogioco":
+                        Videogioco videogioco = new Videogioco(splitArray[1],Integer.parseInt(splitArray[2]),Integer.parseInt(splitArray[3]),splitArray[4]);
+                        inserisci((T) videogioco);
+                        break;
+                    default:
+                        break;
+                }
+
+                s=fIN.readLine();
+                i = 0;
+            }
+            f.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     //metodo per inserire nodi con overwriting (usato per eliminare nodi)
     private Nodo<T> inserisciRicorsivo(Nodo<T> corrente, Nodo<T> nodo){
-	if(corrente==null){
+	    if(corrente==null){
 	    return nodo;
-	}
+	    }
 	
-	int cmp=nodo.valore.compareTo(corrente.valore);
+    	int cmp=nodo.valore.compareTo(corrente.valore);
 
-	if(cmp<0){corrente.sinistro=inserisciRicorsivo(corrente.sinistro,nodo);}
-	else if(cmp>0){corrente.destro=inserisciRicorsivo(corrente.destro,nodo);}
+    	if(cmp<0){corrente.sinistro=inserisciRicorsivo(corrente.sinistro,nodo);}
+	    else if(cmp>0){corrente.destro=inserisciRicorsivo(corrente.destro,nodo);}
 
-	return corrente;	
+	    return corrente;
     }
 
     //metodo publico per cercare un valore
@@ -140,7 +179,7 @@ public class BST <T extends Comparable<T> & Catalogabile>{
 
         //2. salva il nodo corrente
         try {
-            fOUT.write("\n"+corrente.valore.formatoCsv());
+            fOUT.write("\n"+corrente.valore.printCSV());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
