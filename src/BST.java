@@ -248,21 +248,43 @@ public class BST <T extends Comparable<T> & ToCSV>{
     }
 
     public void stampaGrafica() {
-        stampaGrafica(radice, "", true);
+        stampaGraficaRicorsivo(radice, "", true);
     }
 
-    private void stampaGrafica(Nodo<T> nodo, String prefix, boolean isTail) {
+    private void stampaGraficaRicorsivo(Nodo<T> nodo, String prefix, boolean isTail) {
         if (nodo == null) return;
 
         System.out.println(prefix + (isTail ? "└────── " : "├────── ") + nodo.valore);
 
         if (nodo.sinistro != null || nodo.destro != null) {
             if (nodo.destro != null) {
-                stampaGrafica(nodo.destro, prefix + (isTail ? "        " : "│       "), nodo.sinistro == null);
+                stampaGraficaRicorsivo(nodo.destro, prefix + (isTail ? "        " : "│       "), nodo.sinistro == null);
             }
             if (nodo.sinistro != null) {
-                stampaGrafica(nodo.sinistro, prefix + (isTail ? "        " : "│       "), true);
+                stampaGraficaRicorsivo(nodo.sinistro, prefix + (isTail ? "        " : "│       "), true);
             }
         }
-    }   	
+    }
+    public String getStampaGrafica() {
+        String grafica="";
+        grafica+=getstampaGraficaRicorsivo(radice, "", true,grafica);
+        return  grafica;
+    }
+
+    private String getstampaGraficaRicorsivo(Nodo<T> nodo, String prefix, boolean isTail,String grafica) {
+        if (nodo == null) return grafica;
+
+        grafica+=("\n"+prefix + (isTail ? "└────── " : "├────── ") + nodo.valore);
+
+        if (nodo.sinistro != null || nodo.destro != null) {
+            if (nodo.destro != null) {
+                grafica=getstampaGraficaRicorsivo(nodo.destro, prefix + (isTail ? "          " : "│         "), nodo.sinistro == null,grafica);
+            }
+            if (nodo.sinistro != null) {
+                grafica=getstampaGraficaRicorsivo(nodo.sinistro, prefix + (isTail ? "          " : "│         "), true,grafica);
+            }
+        }
+        return grafica;
+    }
+
 }

@@ -177,8 +177,8 @@ public class GUI extends Application {
         });
     }
     private void stampaCatalogo() {
-        areaOutput.appendText("stampato elenco ordinato nel terminale.\n\n");
-        catalogo.stampaInOrdine();
+        areaOutput.appendText("stampa albero del catalogo\n\n");
+        areaOutput.appendText(catalogo.getStampaGrafica());
     }
 
     public static void main(String[] args) {
